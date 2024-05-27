@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomScreen from './screens/HomScreen';
+import AboutScreen from './screens/AboutScreen';
+import { Pressable, Text } from 'react-native';
+
+const Stack= createNativeStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name='Home' component={HomScreen} options={{
+          title:"A little bit oxygen",
+          headerStyle:{
+            backgroundColor:"grey",
+          },
+          headerTintColor:"#fff",
+          headerTitleStyle:{fontWeight:"bold"},
+          headerRight:()=>(
+            <Pressable onPress={()=>alert("Menu pressed")}>
+              <Text>Menu</Text>
+            </Pressable>
+          )
+        }}/> 
+        <Stack.Screen name='About' component={AboutScreen} initialParams={{
+          name:"Katee"
+        }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
