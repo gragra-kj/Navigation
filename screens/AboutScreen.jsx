@@ -1,8 +1,15 @@
-import { StyleSheet, Text, View,Button } from 'react-native'
+import { StyleSheet, Text, View,Button } from 'react-native';
+import { useLayoutEffect } from 'react';
 
 
 export default function AboutScreen({route,navigation}) {
-    const {name}=route.params
+    const {name}=route.params;
+
+    useLayoutEffect(()=>{
+      navigation.setOptions({
+        title:name
+      })
+    },[navigation])
   return (
     <View style={styles.container}>
       <Text style={styles.text}>About {name}</Text>
@@ -10,7 +17,8 @@ export default function AboutScreen({route,navigation}) {
         name:"Muthui"
       })}/>
       <Button title='Go back with data' onPress={()=>navigation.navigate("Home",{
-        result:"Cant even Breath"
+        result:"Cant even Breath",
+        name:"Grace"
       })}/>
     </View>
   )
